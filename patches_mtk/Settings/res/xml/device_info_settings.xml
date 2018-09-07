@@ -1,0 +1,2 @@
+        <!-- Logo -->
+        <PreferenceCategory android:layout="@layout/about_dexp" android:title="" android:key="dexp" />

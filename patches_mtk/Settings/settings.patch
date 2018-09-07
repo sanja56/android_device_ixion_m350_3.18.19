@@ -1,0 +1,160 @@
+Двоичные файлы Settings/.git/index и Settings-1/.git/index различаются
+diff -ruN Settings/res/drawable/about.xml Settings-1/res/drawable/about.xml
+--- Settings/res/drawable/about.xml	1970-01-01 03:00:00.000000000 +0300
++++ Settings-1/res/drawable/about.xml	2015-03-05 19:12:57.000000000 +0300
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector
++  xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:state_pressed="true" android:drawable="@drawable/logo" />
++    <item android:state_selected="true" android:drawable="@drawable/logo" />
++    <item android:drawable="@drawable/anim" />
++</selector>
+\ В конце файла нет новой строки
+diff -ruN Settings/res/drawable/anim.xml Settings-1/res/drawable/anim.xml
+--- Settings/res/drawable/anim.xml	1970-01-01 03:00:00.000000000 +0300
++++ Settings-1/res/drawable/anim.xml	2017-06-27 08:07:00.000000000 +0300
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<animation-list android:oneshot="false"
++  xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:duration="100" android:drawable="@drawable/logo_anim" />
++</animation-list>
+diff -ruN Settings/res/layout/about_dexp.xml Settings-1/res/layout/about_dexp.xml
+--- Settings/res/layout/about_dexp.xml	1970-01-01 03:00:00.000000000 +0300
++++ Settings-1/res/layout/about_dexp.xml	2017-06-27 08:50:35.000000000 +0300
+@@ -0,0 +1,3 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ImageView android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:paddingBottom="6.0dip" android:clickable="true" android:layout_width="fill_parent" android:layout_height="180.0px" android:src="@drawable/about" android:scaleType="fitXY"
++  xmlns:android="http://schemas.android.com/apk/res/android" />
+diff -ruN Settings/res/layout/about.xml Settings-1/res/layout/about.xml
+--- Settings/res/layout/about.xml	1970-01-01 03:00:00.000000000 +0300
++++ Settings-1/res/layout/about.xml	2015-03-05 19:12:58.000000000 +0300
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector
++  xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:state_pressed="true" android:drawable="@drawable/logo" />
++    <item android:state_selected="true" android:drawable="@drawable/logo" />
++    <item android:drawable="@drawable/anim" />
++</selector>
+\ В конце файла нет новой строки
+diff -ruN Settings/res/values/strings.xml Settings-1/res/values/strings.xml
+--- Settings/res/values/strings.xml	2017-06-28 08:59:29.577065841 +0300
++++ Settings-1/res/values/strings.xml	2017-06-27 21:37:33.165420923 +0300
+@@ -33,6 +33,8 @@
+     <!-- Device Info --> <skip />
+     <!-- Device Info screen. Used for a status item's value when the proper value is not known -->
+     <string name="device_info_default">Unknown</string>
++    <!-- Device Info screen. Used for a status item's value when the proper value is not known -->
++    <string name="author_info_default">Sanja56 (4PDA.ru)</string>
+     <!-- [CHAR LIMIT=NONE] Device Info screen. Countdown for user taps to enable development settings -->
+     <plurals name="show_dev_countdown">
+         <item quantity="one">You are now <xliff:g id="step_count">%1$d</xliff:g> step away from being a developer.</item>
+@@ -2375,6 +2377,8 @@
+     <string name="firmware_version">Android version</string>
+     <!-- About phone screen, status item label  [CHAR LIMIT=60] -->
+     <string name="security_patch">Android security patch level</string>
++    <!-- About phone screen, status item label  [CHAR LIMIT=60] -->
++    <string name="author_info">Build author</string>
+     <!-- About phone screen, status item label  [CHAR LIMIT=40] -->
+     <string name="model_info">Model</string>
+     <!-- About phone screen, fcc equipment id label  [CHAR LIMIT=40] -->
+diff -ruN Settings/res/values-ru/strings.xml Settings-1/res/values-ru/strings.xml
+--- Settings/res/values-ru/strings.xml	2017-06-28 08:59:29.341065850 +0300
++++ Settings-1/res/values-ru/strings.xml	2017-06-27 21:37:33.165420923 +0300
+@@ -1042,6 +1042,7 @@
+     <string name="system_update_settings_list_item_summary" msgid="3853057315907710747"></string>
+     <string name="firmware_version" msgid="4801135784886859972">"Версия Android"</string>
+     <string name="security_patch" msgid="8438384045870296634">"Последнее обновление системы безопасности"</string>
++    <string name="author_info">"Автор сборки"</string>
+     <string name="model_info" msgid="1952009518045740889">"Модель"</string>
+     <string name="fcc_equipment_id" msgid="149114368246356737">"Идентификатор оборудования"</string>
+     <string name="baseband_version" msgid="1848990160763524801">"Прошивка модуля связи"</string>
+diff -ruN Settings/res/xml/device_info_settings.xml Settings-1/res/xml/device_info_settings.xml
+--- Settings/res/xml/device_info_settings.xml	2017-06-28 08:59:29.581065840 +0300
++++ Settings-1/res/xml/device_info_settings.xml	2017-06-27 21:38:26.578690309 +0300
+@@ -19,31 +19,8 @@
+         xmlns:settings="http://schemas.android.com/apk/res-auto"
+         android:title="@string/about_settings">
+ 
+-        <!-- System update settings - launches activity -->
+-        <PreferenceScreen android:key="system_update_settings"
+-                android:title="@string/system_update_settings_list_item_title"
+-                android:summary="@string/system_update_settings_list_item_summary">
+-            <intent android:action="android.settings.SYSTEM_UPDATE_SETTINGS" />
+-        </PreferenceScreen>
+-
+-
+-        <PreferenceScreen android:key="additional_system_update_settings"
+-                          android:title="@string/additional_system_update_settings_list_item_title">
+-            <intent android:action="android.intent.action.MAIN"
+-                    android:targetPackage="@string/additional_system_update"
+-                    android:targetClass="@string/additional_system_update_menu" />
+-        </PreferenceScreen>
+-
+-        <!-- LineageOS Updates -->
+-        <cyanogenmod.preference.SelfRemovingPreference android:key="cm_updates"
+-                android:title="@string/cmupdate_settings_title"
+-                android:summary="@string/system_update_settings_list_item_summary"
+-                cm:requiresOwner="true"
+-                cm:requiresPackage="org.lineageos.updater">
+-            <intent android:action="android.intent.action.MAIN"
+-                    android:targetPackage="org.lineageos.updater"
+-                    android:targetClass="org.lineageos.updater.UpdatesActivity" />
+-        </cyanogenmod.preference.SelfRemovingPreference>
++        <!-- Logo -->
++        <PreferenceCategory android:layout="@layout/about_dexp" android:title="" android:key="dexp" />
+ 
+         <!-- Device status - launches activity -->
+         <PreferenceScreen android:key="status_info"
+@@ -137,6 +114,14 @@
+                         android:data="https://source.android.com/security/bulletin/" />
+         </PreferenceScreen>
+ 
++        <!-- Author Info -->
++        <PreferenceScreen android:key="author_info"
++                android:title="@string/author_info"
++                android:summary="@string/author_info_default">
++                <intent android:action="android.intent.action.VIEW"
++                        android:data="http://4pda.ru/forum/index.php?showuser=3958502" />
++        </PreferenceScreen>
++
+         <!-- Device FCC equipment id -->
+         <com.android.settings.DividerPreference
+                 android:key="fcc_equipment_id"
+diff -ruN Settings/src/com/android/settings/DeviceInfoSettings.java Settings-1/src/com/android/settings/DeviceInfoSettings.java
+--- Settings/src/com/android/settings/DeviceInfoSettings.java	2017-06-28 08:59:29.609065839 +0300
++++ Settings-1/src/com/android/settings/DeviceInfoSettings.java	2017-06-27 21:37:33.165420923 +0300
+@@ -69,6 +69,7 @@
+     private static final String KEY_BASEBAND_VERSION = "baseband_version";
+     private static final String KEY_FIRMWARE_VERSION = "firmware_version";
+     private static final String KEY_SECURITY_PATCH = "security_patch";
++    private static final String KEY_AUTHOR_INFO = "author_info";
+     private static final String KEY_UPDATE_SETTING = "additional_system_update_settings";
+     private static final String KEY_EQUIPMENT_ID = "fcc_equipment_id";
+     private static final String PROPERTY_EQUIPMENT_ID = "ro.ril.fccid";
+@@ -153,6 +154,9 @@
+         setExplicitValueSummary(KEY_MOD_API_LEVEL, constructApiLevelString());
+         findPreference(KEY_MOD_API_LEVEL).setEnabled(true);
+ 
++	String author_info = getResources().getString(R.string.author_info_default);
++	setStringSummary(KEY_AUTHOR_INFO, author_info);	
++
+         if (!SELinux.isSELinuxEnabled()) {
+             String status = getResources().getString(R.string.selinux_status_disabled);
+             setStringSummary(KEY_SELINUX_STATUS, status);
+@@ -331,6 +335,13 @@
+                         + "queryIntentActivities() returns empty" );
+                 return true;
+             }
++        } else if (preference.getKey().equals(KEY_AUTHOR_INFO)) {
++            if (getPackageManager().queryIntentActivities(preference.getIntent(), 0).isEmpty()) {
++                // Don't send out the intent to stop crash
++                Log.w(LOG_TAG, "Stop click action on " + KEY_AUTHOR_INFO + ": "
++                        + "queryIntentActivities() returns empty" );
++                return true;
++            }
+         } else if (preference.getKey().equals(KEY_DEVICE_FEEDBACK)) {
+             sendFeedback();
+         } else if(preference.getKey().equals(KEY_SYSTEM_UPDATE_SETTINGS)) {
