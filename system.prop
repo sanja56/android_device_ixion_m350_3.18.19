@@ -4,6 +4,7 @@
 rild.libpath=/system/lib64/mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 ril.specific.sm_cause=0
+ril.external.md
 ro.telephony.default_network=9
 persist.radio.multisim.config=dsds
 persist.radio.default.sim=0
@@ -16,10 +17,10 @@ ro.telephony.ril_class=MT6735
 ro.telephony.ril.config=fakeiccid
 ro.telephony.sim.count=2
 ril.current.share_modem=2
-persist.radio.fd.counter=150
-persist.radio.fd.off.counter=50
-persist.radio.fd.r8.counter=150
-persist.radio.fd.off.r8.counter=50
+persist.radio.fd.counter=15
+persist.radio.fd.off.counter=5
+persist.radio.fd.r8.counter=15
+persist.radio.fd.off.r8.counter=5
 
 wifi.interface=wlan0
 ro.hardware=mt6735m
@@ -57,6 +58,9 @@ ro.sf.lcd_density=320
 ro.opengles.version=196609
 persist.sys.force_highendgfx=true
 
+# Disable dirty region for Mali
+debug.hwui.render_dirty_regions=false
+
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
 ro.mtk_bg_power_saving_support=1
@@ -69,20 +73,14 @@ wifi.supplicant_scan_interval=360
 ro.zygote.preload.enable=0
 ro.kernel.zio=38,108,105,16
 
-# Disable dirty region for Mali
-debug.hwui.render_dirty_regions=false
-ro.wind_gestures_supported=1
-
 # Performance
 ro.mtk_perf_simple_start_win=1
 ro.mtk_perf_fast_start_win=1
 ro.mtk_perf_response_time=1
 dalvik.vm.checkjni=false
 persist.debug.wfd.enable=1
-persist.sys.timezone = Europe/Moscow
-
 ro.mtk_perfservice_support=1
-ro.telephony.default_network=9
+persist.sys.timezone = Europe/Moscow
 
 # ClearMotion
 persist.sys.display.clearMotion=0
