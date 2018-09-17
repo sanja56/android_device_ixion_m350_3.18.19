@@ -5,8 +5,6 @@
 $(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
 $(shell touch $(OUT)/obj/KERNEL_OBJ/usr/export_includes)
 
-BOARD_USES_LEGACY_MTK_AV_BLOB := true
-
 # SU
 WITH_SU := true
 
@@ -96,6 +94,7 @@ BOARD_HAS_MTK_HARDWARE := true
 BOARD_USES_MTK_HARDWARE := true
 MTK_HARDWARE := true
 BOARD_USES_MTK_MEDIA_PROFILES := true
+BOARD_USES_LEGACY_MTK_AV_BLOB := true
 
 # CMHW
 #BOARD_USES_CYANOGEN_HARDWARE := true
