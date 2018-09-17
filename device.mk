@@ -3,9 +3,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # These additionals go to /default.prop
-ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0 \
+ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.allow.mock.location=1 \
     ro.debuggable=1 \
+    ro.secure=0 \
     ro.adb.secure=0 \
     persist.service.acm.enable=0 \
     persist.sys.usb.config=mtp \
